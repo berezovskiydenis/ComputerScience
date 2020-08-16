@@ -2,6 +2,7 @@ import unittest
 
 from adt.bag import Bag
 from adt.fifo_queue import FIFOQueue
+from adt.stack import Stack
 
 
 class Test_Bag(unittest.TestCase):
@@ -79,3 +80,25 @@ class Test_FIFOQueue(unittest.TestCase):
         self.q.dequeue()
         self.q.enqueue(3)
         self.assertEqual(self.q.size(), 2)
+
+
+class Test_Stack(unittest.TestCase):
+    def setUp(self):
+        self.stack = Stack()
+
+    def tearDown(self):
+        del self.stack
+
+    def test_add_items(self):
+        self.stack.push(1)
+        self.stack.push(2)
+        self.stack.push(3)
+        self.assertEqual(self.stack.size(), 3)
+
+    def test_pop_item(self):
+        self.stack.push(1)
+        self.stack.push(2)
+        self.stack.push(3)
+        item = self.stack.pop()
+        self.assertEqual(item, 3)
+        self.assertEqual(self.stack.size(), 2)
