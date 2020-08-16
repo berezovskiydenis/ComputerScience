@@ -1,6 +1,7 @@
 import unittest
 
 from adt.bag import Bag
+from adt.fifo_queue import FIFOQueue
 
 
 class Test_Bag(unittest.TestCase):
@@ -28,3 +29,53 @@ class Test_Bag(unittest.TestCase):
             arr.append(x)
 
         self.assertEqual(arr, [1, 2, 3, 4, 5])
+
+
+class Test_FIFOQueue(unittest.TestCase):
+    def setUp(self):
+        self.q = FIFOQueue()
+
+    def test_empty(self):
+        self.assertTrue(self.q.is_empty())
+
+    def test_zero_size(self):
+        self.assertEqual(self.q.size(), 0)
+
+    def test_add_items(self):
+        self.q.enqueue(1)
+        self.q.enqueue(2)
+        self.q.enqueue(3)
+        self.assertEqual(self.q.size(), 3)
+        self.assertFalse(self.q.is_empty())
+
+    def test_add_remove_items(self):
+        self.q.enqueue(0)
+        self.q.enqueue(1)
+        self.q.enqueue(2)
+        self.q.enqueue(3)
+        self.q.enqueue(4)
+        self.assertEqual(self.q.size(), 5)
+        i = self.q.dequeue()
+        self.assertEqual(i, 0)
+        self.assertEqual(self.q.size(), 4)
+
+    def test_deque(self):
+        self.q.enqueue(0)
+        self.q.enqueue(1)
+        self.q.enqueue(2)
+        self.assertEqual(self.q.size(), 3)
+        self.q.dequeue()
+        self.q.dequeue()
+        self.q.dequeue()
+        self.assertRaises(ValueError, self.q.dequeue)
+        self.assertEqual(self.q.size(), 0)
+        self.assertTrue(self.q.is_empty())
+
+    def test_non_zero_size(self):
+        self.q.enqueue(0)
+        self.q.enqueue(1)
+        self.q.enqueue(2)
+        self.q.dequeue()
+        self.q.dequeue()
+        self.q.enqueue(3)
+        self.assertEqual(self.q.size(), 2)
