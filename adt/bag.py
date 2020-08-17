@@ -1,18 +1,22 @@
 
 class Bag:
-    """Is a collection where removing items is not supported."""
+    """Bag is a collection where removing items is not supported."""
 
     def __init__(self):
+        """Create an empty bag."""
         self.items = []
         self._counter = 0
 
     def add(self, item):
+        """Add an item to the bag."""
         self.items.append(item)
 
     def is_empty(self):
+        """Check if bag is empty."""
         return True if self.size() == 0 else False
 
     def size(self):
+        """Size of a bag."""
         return len(self.items)
 
     def __iter__(self):
